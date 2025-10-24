@@ -1,4 +1,5 @@
 from stats import number_words , number_characters , sort_counts
+import sys #imports built in module sys so that the path to the textfile can be passed from terminal
 
 def get_book_text(filepath):
     with open(filepath) as f:
@@ -6,12 +7,13 @@ def get_book_text(filepath):
 
 def main():
     char_num = {}
-    text = get_book_text("books/frankenstein.txt")
-    #print(f"Found {number_words(text)} total words")
+    try:
+        text = get_book_text(sys.argv[1]) #passes the path to text to get_book_text
+    except Exception as e:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
     char_num = number_characters(text)
     sorted_list = sort_counts(char_num)
-    #print(sorted_list)
-
     print("============ BOOKBOT ============\n" #\n tells print to go to a new line in the terminal/output
           "Analyzing book found at books/frankenstein.txt...\n"
           "----------- Word Count ----------\n"
